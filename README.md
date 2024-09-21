@@ -6,9 +6,11 @@
 -run it once downloaded and follow the instructions
 
 <h3>If you have python:</h3>
--download the run.bat and main.py file
+-download the zip file containing all the files by pressing on the green code button on the top right and choosing "Download ZIP"
 <br>
--double click the run.bat file
+-extract the folder making sure to keep the files in a folder
+<br>
+-double click run.bat to start the game
 
 <h2>Known bugs</h2>
 
