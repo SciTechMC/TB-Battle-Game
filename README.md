@@ -12,8 +12,8 @@
 
 <h2>Known bugs</h2>
 
-<h5>When starting the game, nothing shows up in the second windows</h5>
+<h3>When starting the game, nothing shows up in the second windows</h3>
 Solution: Click on the window and press enter, the health bars should show up now.
 <br>
-<h5>The seconds window closed out of no where</h5>
+<h3>The seconds window closed out of no where</h3>
 Solution: Close the game window and rerun the run.bat file
