@@ -3,6 +3,7 @@ from rich import print
 import random
 import math
 from dataclasses import dataclass
+import subprocess
 #define all variables
 
 #player
@@ -55,7 +56,9 @@ def move_choice(move, turn):
                     print(f"You [red bold]attacked[/red bold] the AI, but it [blue bold]blocked[/blue bold] your attack so you only did [yellow bold]{player.attack_power} damage[/yellow bold].")
                 else:
                     print(f"You [red bold]attacked[/red bold] the AI, doing [red bold]{player.attack_power} damage[/red bold]!")
+
                 ai.health -= player.attack_power
+
                 if ai.health < 0:
                     ai.health = 0
 
@@ -67,11 +70,13 @@ def move_choice(move, turn):
                 if random.randint(0, 10) == ai.crit_chance:
                     ai.attack_power = math.ceil(ai.attack_power*1.75)
                     print("The AI hit a [blue]crit[/blue]!")
+
                 if player.defending:
                     ai.attack_power -= math.floor(ai.attack_power * (1 - player.defence_power))
                     print(f"The AI [red bold]attacked[/red bold] you, but since you [blue bold]blocked[/blue bold] it, only did [yellow bold]{ai.attack_power} damage[/yellow bold]!")
                 else:
                     print(f"The AI [red bold]attacked[/red bold] you for [red bold]{ai.attack_power} damage[/red bold]!")
+
                 player.health -= ai.attack_power
                 if player.health < 0:
                     player.health = 0
@@ -83,7 +88,7 @@ def move_choice(move, turn):
             if turn == "player":
                 player.defence_power = defence_amount
                 player.defending = True
-                print("You are [blue bold]defending[/blue bold]]!")
+                print("You are [blue bold]defending[/blue bold]!")
 
             #AI
             else:
@@ -112,12 +117,6 @@ def move_choice(move, turn):
                     ai.health = 100
                     print("The AI is now at [bright_green bold]full HP[/bright_green bold]")
                 print(f"The AI [bright_green bold]healed {heal_amount} HP[/bright_green bold]!")
-
-
-    print()
-    print(f"[cyan bold]Your health: {player.health} HP[/cyan bold]")
-    print(f"[magenta bold]AI health: {ai.health}[/magenta bold]")
-    print()
 
 def player_turn():
     print_options()
@@ -161,15 +160,26 @@ def battle_arena():
     time.sleep(1)
     print(f"[red]FIGHT[/red]")
     print()
+
+    subprocess.Popen(['python', 'health_bars.py'], creationflags=subprocess.CREATE_NEW_CONSOLE)
+
     while player.health > 0 and ai.health > 0:
+        with open("health.txt", 'w') as healthFile:
+            healthFile.write(f"{player.health},{ai.health}")
         if player.health <= 0:
             ai.winner = True
             break
         player_turn()
+        print()
+        with open("health.txt", 'w') as healthFile:
+            healthFile.write(f"{player.health},{ai.health}")
+
         if ai.health <= 0:
             player.winner = True
             break
         ai_turn()
+        print()
+
 
     if player.winner:
         print("[green bold]You WON! Well done![/green bold]")
