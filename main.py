@@ -33,10 +33,10 @@ game_round = 0
 #defined all variables --------------------
 
 def print_options():
-    print("Chose your next move!")
-    print("1. Attack")
-    print("2. Defend")
-    print("3. Heal")
+    print("[bright_white bold on black]Chose your next move![/bright_white bold on black]")
+    print("1. [red bold]Attack[/red bold]")
+    print("2. [blue bold]Defend[/blue bold]")
+    print("3. [bright_green bold]Heal[/bright_green bold]")
     print()
 
 def move_choice(move, turn):
@@ -49,12 +49,12 @@ def move_choice(move, turn):
                 player.attack_power = random.randint(10,20)
                 if random.randint(0,10) == player.crit_chance:
                     player.attack_power *= 2
-                    print("You hit a crit!")
+                    print("You hit a [blue]crit[/blue]!")
                 if ai.defending:
                     player.attack_power -= math.floor(player.attack_power * (1 - ai.defence_power))
-                    print(f"You attacked the AI, but it blocked your attack so you only did {player.attack_power} damage.")
+                    print(f"You [red bold]attacked[/red bold] the AI, but it [blue bold]blocked[/blue bold] your attack so you only did [yellow bold]{player.attack_power} damage[/yellow bold].")
                 else:
-                    print(f"You attack the AI, doing {player.attack_power} damage!")
+                    print(f"You [red bold]attacked[/red bold] the AI, doing [red bold]{player.attack_power} damage[/red bold]!")
                 ai.health -= player.attack_power
                 if ai.health < 0:
                     ai.health = 0
@@ -64,14 +64,14 @@ def move_choice(move, turn):
                 ai.defending = False
 
                 ai.attack_power = random.randint(8,18)
-                if random.randint(0, 10) == player.crit_chance:
-                    ai.attack_power *= 1.75
-                    print("The AI hit a crit!")
+                if random.randint(0, 10) == ai.crit_chance:
+                    ai.attack_power = math.ceil(ai.attack_power*1.75)
+                    print("The AI hit a [blue]crit[/blue]!")
                 if player.defending:
                     ai.attack_power -= math.floor(ai.attack_power * (1 - player.defence_power))
-                    print(f"The AI attacked you, but since you blocked it, only did {ai.attack_power} damage!")
+                    print(f"The AI [red bold]attacked[/red bold] you, but since you [blue bold]blocked[/blue bold] it, only did [yellow bold]{ai.attack_power} damage[/yellow bold]!")
                 else:
-                    print(f"The AI attacked you for {ai.attack_power} damage!")
+                    print(f"The AI [red bold]attacked[/red bold] you for [red bold]{ai.attack_power} damage[/red bold]!")
                 player.health -= ai.attack_power
                 if player.health < 0:
                     player.health = 0
@@ -83,13 +83,13 @@ def move_choice(move, turn):
             if turn == "player":
                 player.defence_power = defence_amount
                 player.defending = True
-                print("You are defending the AI's next attack.")
+                print("You are [blue bold]defending[/blue bold]]!")
 
             #AI
             else:
                 ai.defence_power = defence_amount
                 ai.defending = True
-                print("The AI is defending your next attack.")
+                print("The AI is [blue bold]defending[/blue bold]!")
 
         case 3: #heal
             if turn == "player":
@@ -99,9 +99,9 @@ def move_choice(move, turn):
                 player.health += heal_amount
                 if player.health > 100:
                     player.health = 100
-                    print("You are now at full HP!")
+                    print("You are now at [bright_green bold]full HP[/bright_green bold]!")
                 else:
-                    print(f"You healed {heal_amount} HP!")
+                    print(f"You [bright_green bold]healed {heal_amount} HP[/bright_green bold]!")
 
             else:
                 ai.defending = False
@@ -110,12 +110,13 @@ def move_choice(move, turn):
                 ai.health += heal_amount
                 if ai.health > 100:
                     ai.health = 100
-                print(f"The AI healed {heal_amount} HP!")
+                    print("The AI is now at [bright_green bold]full HP[/bright_green bold]")
+                print(f"The AI [bright_green bold]healed {heal_amount} HP[/bright_green bold]!")
 
 
     print()
-    print(f"Your health: {player.health}")
-    print(f"AI health: {ai.health}")
+    print(f"[cyan bold]Your health: {player.health} HP[/cyan bold]")
+    print(f"[magenta bold]AI health: {ai.health}[/magenta bold]")
     print()
 
 def player_turn():
@@ -129,7 +130,7 @@ def player_turn():
     return False
 
 def ai_turn():
-    print("AI's turn...")
+    print("[bright_white bold on black]AI's turn...[/bright_white bold on black]")
     time.sleep(2)
 
     #AI choice making
