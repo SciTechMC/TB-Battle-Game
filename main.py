@@ -134,13 +134,20 @@ def ai_turn():
 
     #AI choice making
     if ai.health > 50:
-        ai.move = 1
+        ai.move = random.choice([1,1,1,1,2,3])
     elif ai.health < 30:
-        ai.move = 3
-    elif player.health <= 40:
-        ai.move = 1
+        if player.health < 40:
+            ai.move = random.choice([1,1,2])
+
+        if ai.health < 10:
+            ai.move = 3
+            if player.health < ai.health:
+                ai.move = 1
+
+        else:
+            ai.move = random.choice([2,3])
     else:
-        ai.move = 2
+        ai.move = random.choice([1,1,2,3])
 
     move_choice(ai.move, "ai")
     return False
@@ -161,7 +168,7 @@ def battle_arena():
     print(f"[red]FIGHT[/red]")
     print()
 
-    subprocess.Popen(['python', 'health_bars.py'], creationflags=subprocess.CREATE_NEW_CONSOLE)
+    health_bars = subprocess.Popen(['python', 'health_bars.py'], creationflags=subprocess.CREATE_NEW_CONSOLE)
 
     while player.health > 0 and ai.health > 0:
         with open("health.txt", 'w') as healthFile:
@@ -190,6 +197,7 @@ def battle_arena():
         if input("(y/n)") == "y":
             battle_arena()
 
+    health_bars.terminate()
 if __name__ == '__main__':
     print("Welcome Fighter! Please input your username to personalize your play experience!")
     username = input("Username: ")
