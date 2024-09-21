@@ -5,9 +5,14 @@ from rich.progress import Progress, BarColumn, TextColumn
 def read_health_from_file(file_path):
     if os.path.exists(file_path):
         with open(file_path, 'r') as f:
-            player_health, ai_health = map(int, f.readline().strip().split(','))
-            return player_health, ai_health
-    return 100, 80  # Default values if the file doesn't exist
+            try:
+                player_health, ai_health = map(int, f.readline().strip().split(','))
+            except ValueError:
+                time.sleep(1)
+            else:
+                return player_health, ai_health
+    else:
+        return 100, 80  # Default values if the file doesn't exist
 
 def display_health_bars(file_path):
     with Progress(

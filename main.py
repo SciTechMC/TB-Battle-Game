@@ -138,6 +138,8 @@ def ai_turn():
     elif ai.health < 30:
         if player.health < 40:
             ai.move = random.choice([1,1,2])
+            if player.move != 1:
+                ai.move = random.choice([1,1,3])
 
         if ai.health < 10:
             ai.move = 3
@@ -145,7 +147,7 @@ def ai_turn():
                 ai.move = 1
 
         else:
-            ai.move = random.choice([2,3])
+            ai.move = random.choice([3,3,2,1])
     else:
         ai.move = random.choice([1,1,2,3])
 
