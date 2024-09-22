@@ -14,10 +14,12 @@
 <br>
 -double click run.bat to start the game
 
-<h2>Known bugs</h2>
+## Known bugs/issues
 
-<h3>When starting the game, nothing shows up in the second windows</h3>
+### When starting the game, nothing shows up in the second windows
 Solution: Click on the window and press enter, the health bars should show up now.
 <br>
-<h3>The seconds window closed out of no where</h3>
+### The seconds window closed out of no where
 Solution: Close the game window and rerun the run.bat file
+
+### When running the exe file, windows will not recognise the app and try to have you not run it. You can ignore this message and run it anyway.
