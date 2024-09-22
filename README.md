@@ -1,6 +1,6 @@
 <h1>How to run the game:</h1>
 
-<h3>[Download the Exe](https://github.com/SciTechMC/TB-Battle-Game/blob/main/TBBG-SCM.exe)</h3>
+<h3>Download the .exe file and run it!</h3>
 
 <h3>If you don't have python:</h3>
 -[Download python by clicking on the download button](https://www.python.org/downloads/)
