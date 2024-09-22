@@ -1,6 +1,6 @@
 <h1>How to run the game:</h1>
 
-<h3>Download the .exe file and run it!</h3>
+### [Download the .exe file and run it!](https://github.com/SciTechMC/TB-Battle-Game/releases)
 
 <h3>If you don't have python:</h3>
 -[Download python by clicking on the download button](https://www.python.org/downloads/)
