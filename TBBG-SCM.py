@@ -1,73 +1,14 @@
-#secondary window
-import os
-from rich.progress import Progress, BarColumn, TextColumn
+#version 0.2.0
+#developer: SciTechMC
+#latest patch notes
+#
+#
+#
+#
+import os.path
 
-
-def read_health_from_file(file_path):
-    if os.path.exists(file_path):
-        with open(file_path, 'r') as f:
-            try:
-                player_health, ai_health = map(int, f.readline().strip().split(','))
-            except ValueError:
-                time.sleep(1)
-            else:
-                return player_health, ai_health
-    else:
-        return 100, 80  # Default values if the file doesn't exist
-
-def display_health_bars(file_path):
-    with Progress(
-        TextColumn("{task.description}"),
-        BarColumn(),
-        "[progress.percentage]{task.completed}/{task.total} HP"
-    ) as progress:
-        player_health = progress.add_task("[cyan bold]Your health:[/cyan bold]", total=100, completed=100)
-        ai_health = progress.add_task("[magenta bold]AI health:[/magenta bold]", total=100, completed=100)
-
-        while True:
-            player_hp, ai_hp = read_health_from_file(file_path)
-            progress.update(player_health, completed=player_hp)
-            progress.update(ai_health, completed=ai_hp)
-            time.sleep(0.5)
-
-secondary_window= """
-import time
-import os
-from rich.progress import Progress, BarColumn, TextColumn
-
-def read_health_from_file(file_path):
-    if os.path.exists(file_path):
-        with open(file_path, 'r') as f:
-            try:
-                player_health, ai_health = map(int, f.readline().strip().split(','))
-            except ValueError:
-                time.sleep(1)
-            else:
-                return player_health, ai_health
-    else:
-        return 100, 80  # Default values if the file doesn't exist
-
-def display_health_bars(file_path):
-    with Progress(
-        TextColumn("{task.description}"),
-        BarColumn(),
-        "[progress.percentage]{task.completed}/{task.total} HP"
-    ) as progress:
-        player_health = progress.add_task("[cyan bold]Your health:[/cyan bold]", total=100, completed=100)
-        ai_health = progress.add_task("[magenta bold]AI health:[/magenta bold]", total=100, completed=100)
-
-        while True:
-            player, ai = read_health_from_file(file_path)
-            progress.update(player_health, completed=player)
-            progress.update(ai_health, completed=ai)
-            time.sleep(0.5)
-
-if __name__ == "__main__":
-    time.sleep(3)
-    health_file_path = "health.txt"
-    display_health_bars(health_file_path)
-
-"""
+health_file_path = os.path.abspath(r'.\TBBG-files\TBBG-SCM-Health.txt')
+health_window_fp = os.path.abspath(r'.\TBBG-files\hp_window.exe')
 
 #Main window------------------------------------------------
 import time
@@ -77,7 +18,6 @@ import math
 from dataclasses import dataclass
 import subprocess
 #define all variables
-
 #player
 @dataclass
 class Player:
@@ -248,17 +188,20 @@ def battle_arena():
     print()
 
     if game_round == 1:
-        health_bars_window = subprocess.Popen(['python', '-c', secondary_window], creationflags=subprocess.CREATE_NEW_CONSOLE)
+        try:
+            health_bars_window = subprocess.Popen(health_window_fp, creationflags=subprocess.CREATE_NEW_CONSOLE)
+        except Exception as e:
+            print(f"[red bold italic]Unable to run file------------------!!!!!!!!!!!!!!!!!!!!!!!![/red bold italic]{e}")
 
     while player.health > 0 and ai.health > 0:
-        with open("health.txt", 'w') as healthFile:
+        with open(health_file_path, 'w') as healthFile:
             healthFile.write(f"{player.health},{ai.health}")
         if player.health <= 0:
             ai.winner = True
             break
         player_turn()
         print()
-        with open("health.txt", 'w') as healthFile:
+        with open(health_file_path, 'w') as healthFile:
             healthFile.write(f"{player.health},{ai.health}")
 
         if ai.health <= 0:
