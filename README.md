@@ -2,6 +2,7 @@
 
 ### [Download the .exe file and run it!](https://github.com/SciTechMC/TB-Battle-Game/releases)
 
+## Version 0.2.0 and 0.1.0
 <h3>If you don't have python:</h3>
 -[Download python by clicking on the download button](https://www.python.org/downloads/)
 <br>
