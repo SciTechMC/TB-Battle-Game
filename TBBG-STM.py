@@ -1,7 +1,7 @@
 #version 0.2.0
 #developer: SciTechMC
 #latest patch notes
-#
+#adding an error exempt to run health window
 #
 #
 #
@@ -9,6 +9,8 @@ import os.path
 
 health_file_path = os.path.abspath(r'.\TBBG-files\TBBG-STM-Health.txt')
 health_window_fp = os.path.abspath(r'.\TBBG-files\TBBG-HP-Window.exe')
+health_window_fp_python = os.path.abspath(r'.\TBBG-files\TBBG-HP-Window.py')
+#fp = filepath
 
 #Main window------------------------------------------------
 import time
@@ -17,6 +19,7 @@ import random
 import math
 from dataclasses import dataclass
 import subprocess
+import os
 #define all variables
 #player
 @dataclass
@@ -191,16 +194,20 @@ def battle_arena():
         try:
             health_bars_window = subprocess.Popen(health_window_fp, creationflags=subprocess.CREATE_NEW_CONSOLE)
         except Exception as e:
-            print(f"[red bold italic]Unable to run file------------------!!!!!!!!!!!!!!!!!!!!!!!![/red bold italic]{e}")
+            os.open('python' health_window_fp_python)
+            health_bars_window = subprocess.Popen(health_window_fp_python, creationflags=subprocess.CREATE_NEW_CONSOLE)
 
     while player.health > 0 and ai.health > 0:
+
         with open(health_file_path, 'w') as healthFile:
             healthFile.write(f"{player.health},{ai.health}")
+
         if player.health <= 0:
             ai.winner = True
             break
         player_turn()
         print()
+
         with open(health_file_path, 'w') as healthFile:
             healthFile.write(f"{player.health},{ai.health}")
 
