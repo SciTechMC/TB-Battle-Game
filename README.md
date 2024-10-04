@@ -24,3 +24,13 @@ Solution: Wait for 2-3 seconds, if nothing shows up, click on the window and pre
 Solution: Close the game window and rerun the run.bat file
 
 ### When running the exe file, windows will not recognise the app and try to have you not run it. You can ignore this message and run it anyway.
+
+#Contributing to the project:
+
+If you wish to contribute to the project here are a few guidelines:
+
+When testing the code here is how it should look:
+-TBBG-STM.exe (or '.py' works as well)
+-TBBG-files (folder)
+  -TBBG-HP-window.exe
+  -TBBG-STM-Health.txt (automaticaly made)
