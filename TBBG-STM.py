@@ -1,7 +1,7 @@
 #version 0.2.0
 #developer: SciTechMC
 #latest patch notes
-#adding an error exempt to run health window
+#adding an error exempt to run health window, added compatibility to run hp window using py file
 #
 #
 #
@@ -19,7 +19,6 @@ import random
 import math
 from dataclasses import dataclass
 import subprocess
-import os
 #define all variables
 #player
 @dataclass
@@ -193,9 +192,12 @@ def battle_arena():
     if game_round == 1:
         try:
             health_bars_window = subprocess.Popen(health_window_fp, creationflags=subprocess.CREATE_NEW_CONSOLE)
-        except Exception as e:
-            os.open('python' health_window_fp_python)
-            health_bars_window = subprocess.Popen(health_window_fp_python, creationflags=subprocess.CREATE_NEW_CONSOLE)
+        except Exception:
+            try:
+                subprocess.run(["python", health_window_fp_python])
+            except Exception:
+                print(f"[red bold italic]Unable to find TBBG-HP-Window.exe/.py file! Please check your game files!")
+                time.sleep(9999)
 
     while player.health > 0 and ai.health > 0:
 
