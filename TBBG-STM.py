@@ -20,6 +20,7 @@ import math
 from dataclasses import dataclass
 import subprocess
 #define all variables
+
 #player
 @dataclass
 class Player:
@@ -48,14 +49,24 @@ game_round = 0
 health_bars_window = ""
 #defined all variables --------------------
 
-def print_options():
-    print("[bright_white bold on black]Chose your next move![/bright_white bold on black]")
-    print("1. [red bold]Attack[/red bold]")
-    print("2. [blue bold]Defend[/blue bold]")
-    print("3. [bright_green bold]Heal[/bright_green bold]")
-    print()
+def print_options(scenario):
+    """ scenario = game / menu """
+    match scenario:
+        case "menu":
+            print()
+            print("Welcome to TBBG-STM!")
+            print()
+            print("1. Start a fight")
+            print("2. Exit game")
+        case "game:":
+            print("[bright_white bold on black]Chose your next move![/bright_white bold on black]")
+            print("1. [red bold]Attack[/red bold]")
+            print("2. [blue bold]Defend[/blue bold]")
+            print("3. [bright_green bold]Heal[/bright_green bold]")
+            print()
 
 def move_choice(move, turn):
+    """ move = 1-2-3, turn = player / AI """
     match move:
         case 1: #attack
             #player
@@ -134,7 +145,7 @@ def move_choice(move, turn):
                 print(f"The AI [bright_green bold]healed {heal_amount} HP[/bright_green bold]!")
 
 def player_turn():
-    print_options()
+    print_options("game")
     player.move = 0
     player.move = input("> ")
     if not player.move:
@@ -181,6 +192,11 @@ def reset_game():
     player.health = 100
 
 def battle_arena():
+
+    print("Welcome Fighter! Please input your username to personalize your play experience!")
+    username = input("Username: ")
+    print(f"Good to see you {username}!")
+
     global health_bars_window
     reset_game()
     print()
@@ -194,7 +210,7 @@ def battle_arena():
             health_bars_window = subprocess.Popen(health_window_fp, creationflags=subprocess.CREATE_NEW_CONSOLE)
         except Exception:
             try:
-                subprocess.run(["python", health_window_fp_python])
+                subprocess.Popen(["start", "cmd", "/k", "python", health_window_fp_python], shell=True)
             except Exception:
                 print(f"[red bold italic]Unable to find TBBG-HP-Window.exe/.py file! Please check your game files!")
                 time.sleep(9999)
@@ -230,9 +246,20 @@ def battle_arena():
             battle_arena()
 
     health_bars_window.terminate()
-if __name__ == '__main__':
-    print("Welcome Fighter! Please input your username to personalize your play experience!")
-    username = input("Username: ")
-    print(f"Good to see you {username}!")
 
-    battle_arena()
+def main_menu():
+    with open(health_file_path, 'w') as healthFile:
+        healthFile.write(f"{player.health},{ai.health}")
+    print_options("menu")
+    menu_choice = int(input())
+    match menu_choice:
+        case 1:
+            battle_arena()
+        case 2:
+            return
+        case _:
+            print("Invalid choice. Please try again.")
+            main_menu()
+
+if __name__ == '__main__':
+    main_menu()

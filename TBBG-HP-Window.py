@@ -9,11 +9,11 @@ def read_health_from_file(file_path):
             try:
                 player_health, ai_health = map(int, f.readline().strip().split(','))
             except ValueError:
-                time.sleep(1)
+                print("File not found")
             else:
                 return player_health, ai_health
     else:
-        return 100, 80  # Default values if the file doesn't exist
+        return 100, 100  # Default values if the file doesn't exist
 
 def display_health_bars(file_path):
     with Progress(
@@ -32,6 +32,6 @@ def display_health_bars(file_path):
 
 if __name__ == "__main__":
     print("Loading necessary files...")
-    time.sleep(2)
-    health_file_path = "TBBG-STM-Health.txt"
+    time.sleep(3)
+    health_file_path = os.path.abspath(r'TBBG-STM-Health.txt')
     display_health_bars(health_file_path)
