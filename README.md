@@ -31,11 +31,11 @@ If you wish to contribute to the project here are a few guidelines:
 
 When testing the code here is how it should look:
 <br>
--TBBG-STM.exe (or '.py' works as well)
+>TBBG-STM.exe (or '.py' works as well)
 <br>
--TBBG-files (folder)
+>TBBG-files (folder)
 <br>
-  -TBBG-HP-window.exe
+>>TBBG-HP-window.exe (or '.py' works as well)
 <br>
-  -TBBG-STM-Health.txt (automaticaly made)
+>>TBBG-STM-Health.txt (automaticaly made)
 <br>
