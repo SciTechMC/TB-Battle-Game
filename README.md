@@ -4,7 +4,7 @@
 
 ## Version 0.2.0 and 0.1.0
 <h3>If you don't have python:</h3>
--[Download python by clicking on the download button](https://www.python.org/downloads/)
+- [Download python by clicking on the download button](https://www.python.org/downloads/)
 <br>
 -run it once downloaded and follow the instructions
 
@@ -25,7 +25,7 @@ Solution: Close the game window and rerun the run.bat file
 
 ### When running the exe file, windows will not recognise the app and try to have you not run it. You can ignore this message and run it anyway.
 
-#Contributing to the project:
+# Contributing to the project:
 
 If you wish to contribute to the project here are a few guidelines:
 
